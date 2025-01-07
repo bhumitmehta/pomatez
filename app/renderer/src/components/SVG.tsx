@@ -27,6 +27,7 @@ import {
   LaptopSVG,
   NapSVG,
   MugSVG,
+  PomodoroSVG,
 } from "assets/icons";
 
 export type SVGTypes = {
@@ -59,7 +60,8 @@ export type SVGTypes = {
     | "refresh"
     | "alert"
     | "chevron-down"
-    | "expand";
+    | "expand"
+    | "pomodoro";
 };
 
 const SVG: React.FC<SVGTypes> = ({ name, size, style }) => {
@@ -118,6 +120,8 @@ const SVG: React.FC<SVGTypes> = ({ name, size, style }) => {
       return <ChevronDownSVG />;
     case "expand":
       return <ExpandSVG style={style} />;
+    case "pomodoro":
+      return <PomodoroSVG />;
     default:
       return <TimerSVG />;
   }

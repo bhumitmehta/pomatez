@@ -39,8 +39,8 @@ const TaskList: React.FC<Props> = ({
 
   const dispatch = useAppDispatch();
 
-  const onCardAdd = (cardText: string) => {
-    dispatch(addTaskCard({ listId, cardText }));
+  const onCardAdd = (cardText: string, pomodoro: number = 0) => {
+    dispatch(addTaskCard({ listId, cardText, pomodoro }));
   };
 
   const onEditListTitle = (listTitle: string) => {
@@ -88,6 +88,7 @@ const TaskList: React.FC<Props> = ({
                         id={_id}
                         index={index}
                         done={done}
+                        pomodoro={0}
                         onClick={(e) => {
                           setCardId(_id);
                           setShowDetails(true);
@@ -98,6 +99,7 @@ const TaskList: React.FC<Props> = ({
                               listId,
                               cardId: _id,
                               cardText: text,
+                              // pomodoro: Number,
                             })
                           )
                         }

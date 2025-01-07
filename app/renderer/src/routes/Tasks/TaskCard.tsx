@@ -9,9 +9,11 @@ import {
   StyledCardTextArea,
   StyledCardActionWrapper,
   StyledCardDeleteButton,
+  StyledPomodoroInfo,
 } from "styles";
 import { SVG } from "components";
 import { useTargetOutside } from "hooks";
+import { on } from "events";
 
 type Props = {
   id: string;
@@ -23,6 +25,8 @@ type Props = {
     | undefined;
   onSaveCardText?: (text: string) => void;
   onDeleteCard?: () => void;
+  pomodoro: number;
+  children?: React.ReactNode;
 };
 
 const TaskCard: React.FC<Props> = ({
@@ -33,6 +37,7 @@ const TaskCard: React.FC<Props> = ({
   onClick,
   onDeleteCard,
   onSaveCardText,
+  pomodoro,
 }) => {
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -87,6 +92,12 @@ const TaskCard: React.FC<Props> = ({
     }
   };
 
+  const onPomodoroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      console.log(e.target.value);
+    }
+  };
+
   const renderCardText = () =>
     editing ? (
       <StyledCardTextArea
@@ -99,13 +110,42 @@ const TaskCard: React.FC<Props> = ({
       <StyledCardText done={done}>{text}</StyledCardText>
     );
 
+  // const renderPomodoro = () => {
+  const renderPomodoroInfo = () => {
+    if (editing) {
+      return (
+        <div>
+          <label>
+            Pomodoro:
+            <input
+              type="number"
+              value={pomodoro}
+              onChange={onPomodoroChange}
+            />
+          </label>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p>{pomodoro}</p>
+        </div>
+      );
+    }
+  };
+
   const renderActionButton = () =>
     editing ? (
       <StyledCardSaveButton onClick={onSaveCardAction}>
         <SVG name="save" />
+        <p>here </p>
       </StyledCardSaveButton>
     ) : (
       <StyledCardActionWrapper>
+        <StyledPomodoroInfo onClick={onPomodoroChange}>
+          {renderPomodoroInfo()}
+          <SVG name="pomodoro" />
+        </StyledPomodoroInfo>
         <StyledCardEditButton onClick={onEditCardAction}>
           <SVG name="pencil" />
         </StyledCardEditButton>
@@ -127,6 +167,7 @@ const TaskCard: React.FC<Props> = ({
           onClick={onClick}
         >
           {renderCardText()}
+
           {renderActionButton()}
         </StyledCard>
       )}

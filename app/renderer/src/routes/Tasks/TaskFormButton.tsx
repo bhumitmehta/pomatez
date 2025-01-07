@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import {
   StyledTaskForm,
   StyledButtonPrimary,
@@ -23,7 +23,7 @@ const TaskFormButton: React.FC<Props> = ({ forList, onSubmit }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isOpen, setOpen] = useTargetOutside({ ref: formRef });
-
+  const [pomodoroCount, setPomodoroCount] = useState(1);
   const doSubmit = useCallback(
     (ref: HTMLInputElement | HTMLTextAreaElement, keepOpen = false) => {
       const { value } = ref;
@@ -43,6 +43,19 @@ const TaskFormButton: React.FC<Props> = ({ forList, onSubmit }) => {
     },
     [onSubmit, setOpen]
   );
+  // Initial value for pomodoro count
+
+  const incrementPomodoro = () => setPomodoroCount(pomodoroCount + 1);
+  const decrementPomodoro = () => {
+    if (pomodoroCount > 0) setPomodoroCount(pomodoroCount - 1); // Prevent negative count
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = parseInt(e.target.value, 10);
+    if (!isNaN(value) && value >= 0) setPomodoroCount(value); // Update count if valid
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -139,9 +152,64 @@ const TaskFormButton: React.FC<Props> = ({ forList, onSubmit }) => {
       </StyledTaskCardCancel>
     );
 
+  const renderPomodoroInput = () => {
+    return (
+      // a button to add pomodoro that can increment the pomodoro count abd decrement the pomodoro count
+      // with a input field in the middle to show the current pomodoro count
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0px",
+          color: "black",
+          fontSize: "1.5rem",
+          border: "none",
+          height: "30px",
+        }}
+      >
+        <button
+          onClick={decrementPomodoro}
+          style={{
+            padding: "2px 6px",
+            borderRadius: "5px 0 0 5px ",
+            border: "none",
+          }}
+        >
+          -
+        </button>
+        <label>
+          <input
+            type="number"
+            value={pomodoroCount}
+            onChange={handleInputChange}
+            style={{
+              width: "30px",
+              textAlign: "center",
+              marginLeft: "0px",
+              marginRight: "0px",
+              border: "none",
+              height: "26px",
+            }}
+          />
+        </label>
+        <button
+          onClick={incrementPomodoro}
+          style={{
+            padding: "2px 6px",
+            borderRadius: "0px 5px 5px 0px",
+            border: "none",
+          }}
+        >
+          +
+        </button>
+      </div>
+    );
+  };
+
   const renderForm = () => (
     <StyledTaskForm onSubmit={onSubmitAction} ref={formRef}>
       {renderFormInput()}
+      {renderPomodoroInput()}
       <StyledButtonPrimary type="submit">
         {forList ? "Add List" : "Add Card"}
       </StyledButtonPrimary>

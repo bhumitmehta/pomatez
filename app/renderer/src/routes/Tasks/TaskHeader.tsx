@@ -26,6 +26,7 @@ const TaskHeader: React.FC<Props> = ({
   onEditTitle,
   onRemoveList,
   onMakeListPriority,
+  children,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const optionRef = useRef<HTMLDivElement>(null);

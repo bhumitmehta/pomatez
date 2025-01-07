@@ -35,3 +35,5 @@ export { ReactComponent as AlertSVG } from "./alert.svg";
 export { ReactComponent as ChevronDownSVG } from "./chevron-down.svg";
 
 export { ReactComponent as ExpandSVG } from "./expand.svg";
+
+export { ReactComponent as PomodoroSVG } from "./pomodoro.svg";

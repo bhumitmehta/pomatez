@@ -10,6 +10,7 @@ export type Task = {
   text: string;
   description: string;
   done: boolean;
+  pomodoro: number;
 };
 
 export type TaskList = {

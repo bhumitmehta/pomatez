@@ -69,6 +69,7 @@ const tasksSlice = createSlice({
       action: PayloadAction<{
         listId: TaskList["_id"];
         cardText: Task["text"];
+        pomodoro?: Task["pomodoro"];
       }>
     ) => {
       const text = action.payload.cardText.trim().capitalize();
@@ -102,6 +103,29 @@ const tasksSlice = createSlice({
           const text = action.payload.cardText.trim().capitalize();
 
           return editTask(card, { text });
+        });
+
+        return { ...list, cards: newCards };
+      });
+
+      return newState;
+    },
+
+    editTaskCardPomodoro: (
+      state,
+      action: PayloadAction<{
+        listId: TaskList["_id"];
+        cardId: Task["_id"];
+        pomodoro: Task["pomodoro"];
+      }>
+    ) => {
+      const newState = state.map((list) => {
+        if (list._id !== action.payload.listId) return list;
+
+        const newCards = list.cards.map((card) => {
+          if (card._id !== action.payload.cardId) return card;
+
+          return editTask(card, { pomodoro: action.payload.pomodoro });
         });
 
         return { ...list, cards: newCards };
@@ -292,6 +316,7 @@ export const {
   editTaskCard,
   editTaskCardText,
   editTaskTitle,
+  editTaskCardPomodoro,
   removeTaskCard,
   removeTaskList,
   setTaskCardDone,

@@ -55,6 +55,8 @@ export const StyledCardActionWrapper = styled.div`
 
   display: flex;
   align-items: center;
+
+  font-color: var(--color-body-text);
 `;
 
 export const StyledCardEditButton = styled(StyledButton)`
@@ -69,6 +71,13 @@ export const StyledCardDeleteButton = styled(StyledButton)`
   }
 `;
 
+export const StyledPomodoroInfo = styled.div`
+  ${ButtonCardStyles};
+
+  margin-right: 1px;
+  padding: 0rem;
+`; //Add pomodoro count in the card in the TaskCard component
+
 export const StyledCardSaveButton = styled(StyledButtonPrimary)`
   ${ButtonCardStyles};
   box-shadow: 0 2px 4px -2px var(--color-shadow-primary);
@@ -78,6 +87,12 @@ type CardProps = {
   isDragging?: boolean;
   focused?: boolean;
 };
+
+//Add pomodoro count in the card in the TaskCard component
+//just add the styple in styledcard
+//and add the renderPomodoroInfo in the TaskCard component
+//and add the pomodoro in the TaskCard component
+//and add the onPomodoroChange in the TaskCard component
 
 export const StyledCard = styled.div<CardProps>`
   width: 100%;
