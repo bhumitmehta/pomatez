@@ -23,7 +23,7 @@ type Props = {
   onClick?:
     | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
     | undefined;
-  onSaveCardText?: (text: string) => void;
+  onSaveCardText?: (text: string, pomodoroCount: number) => void;
   onDeleteCard?: () => void;
   pomodoroCount: number;
   children?: React.ReactNode;
@@ -55,13 +55,13 @@ const TaskCard: React.FC<Props> = ({
           if (e.keyCode !== 10 || !areaRef.current) return;
           e.preventDefault();
           if (onSaveCardText && areaRef.current.value) {
-            onSaveCardText(areaRef.current.value);
+            onSaveCardText(areaRef.current.value, pomodoroCount);
           }
           setEditing(false);
         };
       }
     }
-  }, [editing, text, onSaveCardText, setEditing]);
+  }, [editing, text, onSaveCardText, setEditing, pomodoroCount]);
 
   const onEditCardAction = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -86,7 +86,7 @@ const TaskCard: React.FC<Props> = ({
 
     if (areaRef.current) {
       if (onSaveCardText && areaRef.current.value) {
-        onSaveCardText(areaRef.current.value);
+        onSaveCardText(areaRef.current.value, pomodoroCount);
       }
       setEditing(false);
     }

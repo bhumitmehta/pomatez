@@ -69,12 +69,13 @@ const tasksSlice = createSlice({
       action: PayloadAction<{
         listId: TaskList["_id"];
         cardText: Task["text"];
-        pomodoro?: Task["pomodoroCount"];
+        pomodoroCount: Task["pomodoroCount"];
       }>
     ) => {
-      const text = action.payload.cardText.trim().capitalize();
+      const { cardText, pomodoroCount } = action.payload;
+      const text = cardText.trim().capitalize();
 
-      const newTask = createTask({ text });
+      const newTask = createTask({ text, pomodoroCount });
 
       const newState = state.map((list) => {
         if (list._id === action.payload.listId) {

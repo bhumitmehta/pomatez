@@ -16,7 +16,7 @@ export const createTask = ({
     text,
     description,
     done: false,
-    pomodoroCount: 0,
+    pomodoroCount,
   };
 };
 

@@ -8,6 +8,7 @@ import {
   removeTaskList,
   setTaskListPriority,
   removeTaskCard,
+  editTaskCardPomodoro,
 } from "store";
 import { StyledTaskSectionItem, StyledCardWrapper } from "styles";
 import type { TaskList as TaskListType } from "store";
@@ -39,8 +40,8 @@ const TaskList: React.FC<Props> = ({
 
   const dispatch = useAppDispatch();
 
-  const onCardAdd = (cardText: string, pomodoro: number = 0) => {
-    dispatch(addTaskCard({ listId, cardText, pomodoro }));
+  const onCardAdd = (cardText: string, pomodoroCount: number = 0) => {
+    dispatch(addTaskCard({ listId, cardText, pomodoroCount }));
   };
 
   const onEditListTitle = (listTitle: string) => {
@@ -94,13 +95,18 @@ const TaskList: React.FC<Props> = ({
                             setCardId(_id);
                             setShowDetails(true);
                           }}
-                          onSaveCardText={(text) =>
+                          onSaveCardText={(text, pomodoroCount) =>
                             dispatch(
                               editTaskCardText({
                                 listId,
                                 cardId: _id,
                                 cardText: text,
                                 // pomodoro: Number,
+                              }),
+                              editTaskCardPomodoro({
+                                listId,
+                                cardId: _id,
+                                pomodoroCount: pomodoroCount,
                               })
                             )
                           }
