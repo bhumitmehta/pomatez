@@ -25,7 +25,7 @@ type Props = {
     | undefined;
   onSaveCardText?: (text: string) => void;
   onDeleteCard?: () => void;
-  pomodoro: number;
+  pomodoroCount: number;
   children?: React.ReactNode;
 };
 
@@ -37,7 +37,7 @@ const TaskCard: React.FC<Props> = ({
   onClick,
   onDeleteCard,
   onSaveCardText,
-  pomodoro,
+  pomodoroCount,
 }) => {
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -119,8 +119,8 @@ const TaskCard: React.FC<Props> = ({
             Pomodoro:
             <input
               type="number"
-              value={pomodoro}
-              onChange={onPomodoroChange}
+              value={pomodoroCount}
+              onChange={(e) => onPomodoroChange(e)}
             />
           </label>
         </div>
@@ -128,7 +128,8 @@ const TaskCard: React.FC<Props> = ({
     } else {
       return (
         <div>
-          <p>{pomodoro}</p>
+          {console.log("here")}
+          <p>{pomodoroCount} </p>
         </div>
       );
     }
@@ -138,13 +139,12 @@ const TaskCard: React.FC<Props> = ({
     editing ? (
       <StyledCardSaveButton onClick={onSaveCardAction}>
         <SVG name="save" />
-        <p>here </p>
       </StyledCardSaveButton>
     ) : (
       <StyledCardActionWrapper>
-        <StyledPomodoroInfo onClick={onPomodoroChange}>
+        <StyledPomodoroInfo>
           {renderPomodoroInfo()}
-          <SVG name="pomodoro" />
+          <SVG name="timer" />
         </StyledPomodoroInfo>
         <StyledCardEditButton onClick={onEditCardAction}>
           <SVG name="pencil" />

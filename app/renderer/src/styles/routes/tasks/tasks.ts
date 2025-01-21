@@ -176,6 +176,26 @@ export const StyledTaskInput = styled(StyledInput)`
   background-color: transparent;
 `;
 
+export const StyledTaskPomodoroInput = styled.div`
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0.6rem 1.2rem;
+  background-color: transparent;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+`;
+
 export const StyledTaskTextArea = styled(StyledTextArea)`
   grid-column: 1 / -1;
 

@@ -81,35 +81,37 @@ const TaskList: React.FC<Props> = ({
                   />
 
                   <StyledCardWrapper>
-                    {cards.map(({ _id, text, done }, index) => (
-                      <TaskCard
-                        key={_id}
-                        text={text}
-                        id={_id}
-                        index={index}
-                        done={done}
-                        pomodoro={0}
-                        onClick={(e) => {
-                          setCardId(_id);
-                          setShowDetails(true);
-                        }}
-                        onSaveCardText={(text) =>
-                          dispatch(
-                            editTaskCardText({
-                              listId,
-                              cardId: _id,
-                              cardText: text,
-                              // pomodoro: Number,
-                            })
-                          )
-                        }
-                        onDeleteCard={() =>
-                          dispatch(
-                            removeTaskCard({ listId, cardId: _id })
-                          )
-                        }
-                      />
-                    ))}
+                    {cards.map(
+                      ({ _id, text, done, pomodoroCount }, index) => (
+                        <TaskCard
+                          key={_id}
+                          text={text}
+                          id={_id}
+                          index={index}
+                          done={done}
+                          pomodoroCount={pomodoroCount}
+                          onClick={(e) => {
+                            setCardId(_id);
+                            setShowDetails(true);
+                          }}
+                          onSaveCardText={(text) =>
+                            dispatch(
+                              editTaskCardText({
+                                listId,
+                                cardId: _id,
+                                cardText: text,
+                                // pomodoro: Number,
+                              })
+                            )
+                          }
+                          onDeleteCard={() =>
+                            dispatch(
+                              removeTaskCard({ listId, cardId: _id })
+                            )
+                          }
+                        />
+                      )
+                    )}
                   </StyledCardWrapper>
 
                   {dropProvided.placeholder}
